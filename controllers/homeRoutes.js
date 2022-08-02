@@ -1,5 +1,10 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+// const { User } = require('../../models');
+
+// GET method route
+router.get('/', (req, res) => {
+    res.send('GET request to the homepage')
+})
 
 // router.get('/', async (req, res) => {
 //   try {
