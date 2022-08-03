@@ -1,5 +1,6 @@
+const { request } = require('express');
 const router = require('express').Router();
-// const { User } = require('../../models');
+const { User } = require('../../models');
 
 // create a user 
 router.post('/', async (req, res) => {
@@ -20,6 +21,7 @@ router.post('/', async (req, res) => {
   }
 })
 
+// login
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({
@@ -34,16 +36,31 @@ router.post('/login', async (req, res) => {
     }
 
     const correctPassword = await userData.checkPassword(req.body.password)
+
+    if (!correctPassword) {
+      res.status.json({ message: 'Incorrect email or password. Please try again!'})
+      return
+    }
+
+    req.session.save(() => {
+      request.session.loggedIn = true
+      res.status(200).json({ user: userData, message: 'You are now logged in!' })
+    })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
   }
 })
 
-// if user is loggedIn, send to homepage, if not, send to login 
-router.get('/login', (req, res) => {
+// logout
+router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect('/')
-    return
+    req.session.destroy(() => {
+      res.status(204).end()
+    })
+  } else {
+    res.status(404).end()
   }
-  res.render('login')
 })
 
 module.exports = router;

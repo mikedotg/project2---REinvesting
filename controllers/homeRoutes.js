@@ -1,6 +1,9 @@
 const router = require('express').Router();
 // const { User } = require('../../models');
 
+router.get('/', (req, res) => {
+    res.send('GET request to the homepage')
+});
 // router.get('/', async (req, res) => {
 //   try {
 //     // Get all users, sorted by name
@@ -36,5 +39,14 @@ const router = require('express').Router();
 //     res.status(500).json(err);
 //   }
 // });
+
+// if user is loggedIn, send to homepage, if not, send to login 
+router.get('/login', (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect('/')
+      return
+    }
+    res.render('login')
+})  
 
 module.exports = router;
