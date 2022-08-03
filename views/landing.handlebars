@@ -1,4 +1,21 @@
-<div class="dish-card">
+{{!-- this will be a main container.  --}}
+    <div class="container justify-space-between">
+      {{!-- inner container turning the mid section into rows.  --}}
+        <div class="row">
+          {{!-- left section w/ list --}}
+            <div class="col-4 border">.col-4<br>Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new
+                line as one contiguous unit.
+            </div>
+            {{!-- right section to hold the search info and additional calculations --}}
+            <div class="col-6 border">.col-6<br>Subsequent columns continue along the new line.
+            </div>
+        </div>
+    </div>
+
+
+{{!-- the code below is just a sample to know how to code it--}}
+
+    {{!-- <div class="dish-card">
   <div class="dish-card-header">
     {{dish_name}}
   </div>
@@ -17,4 +34,4 @@
       </p>
     {{/if}}
   </div>
-</div>
+</div> --}}
