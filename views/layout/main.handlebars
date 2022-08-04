@@ -17,7 +17,13 @@
             <main class="container container-fluid mt-5">
             </main>
         </div>
-
+        <!-- If the user is logged in, show a logout button -->
+        {{#if loggedIn}}
+        <button id="logout" class="btn-no-style">Logout</button>
+        {{else}}
+        <!-- Otherwise, show a link to login -->
+        <a href="/login">Login</a>
+        {{/if}}
         {{!-- mainsection will be what changes --}}
         <main class="container container-fluid mt-5">
             {{{ body }}}
