@@ -1,37 +1,105 @@
-{{!-- this will be a main container.  --}}
-    <div class="container justify-space-between">
-      {{!-- inner container turning the mid section into rows.  --}}
+<div class="container justify-space-between">
         <div class="row">
-          {{!-- left section w/ list --}}
-            <div class="col-4 border">.col-4<br>Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new
-                line as one contiguous unit.
+            <!-- this will be the left bar and hold all of the saved searches.  -->
+            <div class="col-3 border"><a class="btn btn-primary mt-3" href="link to save goes here">Click here to save
+                    search</a>
+                <hr>
             </div>
-            {{!-- right section to hold the search info and additional calculations --}}
-            <div class="col-6 border">.col-6<br>Subsequent columns continue along the new line.
+
+            <!-- this will be the right container -->
+            <div class="col-9 border ">
+
+
+                <div class="input-group mt-3 mb-3">
+                    <input type="text" class="form-control" placeholder="Type the address to search here"
+                        aria-label="Search city" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                </div>
+
+                <!-- this container holds the search info and inputs-->
+                <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                    <!-- this holds the image and search bar -->
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="./assets/Images/3.png" class="img-fluid rounded-start mx-auto d-block"
+                                alt="image of roperty listed">
+                        </div>
+                        <div class="col-md-8">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Address:</li>
+                                <li class="list-group-item">Beds:</li>
+                                <li class="list-group-item">Baths:</li>
+                                <li class="list-group-item">Sqft:</li>
+                                <li class="list-group-item">Lot:</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container row">
+                    <!-- this will be the list for user inputs -->
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="card col" >
+                                <div class="card-header bg-primary text-white"><h4>Flip Calculations</h4></div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">An item</li>
+                                    <li class="list-group-item">A second item</li>
+                                    <li class="list-group-item">A third item</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card col" >
+                                <div class="card-header bg-secondary text-white"> <p>Rehab Cost</p>  <button id="rehabCostBtn" class="btn btn-primary">New Line</button></div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">An item</li>
+                                    <li class="list-group-item">A second item</li>
+                                    <li class="list-group-item">A third item</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- this is where your the piechart will go  -->
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="card" style="width: 18rem;">
+                                <!-- piechart in here -->
+                            </div>
+                        </div>
+
+                        {{!-- this will hold the holding cost box --}}
+                        <div class="col-sm-6">
+                            <div class="card col" >
+                                <div class="card-header bg-secondary text-white"> <p>Holding Cost</p>  <button id="holdingCostBtn" class="btn btn-primary">New Line</button></div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">An item</li>
+                                    <li class="list-group-item">A second item</li>
+                                    <li class="list-group-item">A third item</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3 mx-auto mt-4" style="max-width: 540px;">
+                    <!-- this holds the image and search bar -->
+                    <div class="row g-0">
+
+                        <div class="card col" >
+                            <div class="card-header bg-warning"> <p>Payment Schedule</p>  <button id="paymentScheduleBtn" class="btn btn-primary">New Line</button></div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">An item</li>
+                                <li class="list-group-item">A second item</li>
+                                <li class="list-group-item">A third item</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
-
-
-{{!-- the code below is just a sample to know how to code it--}}
-
-    {{!-- <div class="dish-card">
-  <div class="dish-card-header">
-    {{dish_name}}
-  </div>
-  <div class="card-body">
-    <p>
-      Description:
-      {{description}}
-    </p>
-    <p>
-      Guest:
-      {{guest_name}}
-    </p>
-    {{#if has_nuts}}
-      <p class="has-nuts">
-        Contains Nuts
-      </p>
-    {{/if}}
-  </div>
-</div> --}}
