@@ -41,12 +41,12 @@ router.get('/', (req, res) => {
 // });
 
 // if user is loggedIn, send to homepage, if not, send to login 
-router.get('/login', (req, res) => {
-    if (req.session.loggedIn) {
-      res.redirect('/')
-      return
-    }
-    res.render('login')
-})  
+// router.get('/login', (req, res) => {
+//     if (req.session.loggedIn) {
+//       res.redirect('/')
+//       return
+//     }
+//     res.render('login')
+// })  
 
 module.exports = router;
