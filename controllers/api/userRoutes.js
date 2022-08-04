@@ -1,15 +1,22 @@
+const { Sequelize } = require('sequelize');
 const { request } = require('express');
 const router = require('express').Router();
 const { User } = require('../../models');
 
+router.get('/', async (req, res) => {
+  try {
+    const usersData = await User.findAll();
+    res.status(200).json(usersData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // create a user 
 router.post('/', async (req, res) => {
   try{
-    const userData = await User.create({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-    });
+    const userData =  
+    await User.create(req.body);
     req.session.save(() => {
       req.session.loggedIn = true
 
@@ -22,9 +29,11 @@ router.post('/', async (req, res) => {
 });
 
 // login
-router.post('/login/:id', async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
-    const userData = await User.find({
+    console.log(req.body)
+
+    const userData = await User.findOne({
       where: {
         email: req.body.email,
       },
@@ -43,7 +52,7 @@ router.post('/login/:id', async (req, res) => {
     }
 
     req.session.save(() => {
-      request.session.loggedIn = true
+      req.session.loggedIn = true
       res.status(200).json({ user: userData, message: 'You are now logged in!' })
     })
   } catch (err) {
