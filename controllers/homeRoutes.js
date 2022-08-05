@@ -2,7 +2,7 @@ const router = require('express').Router();
 // const { User } = require('../../models');
 
 router.get('/', (req, res) => {
-    res.send('GET request to the homepage')
+    res.render('landing')
 });
 // router.get('/', async (req, res) => {
 //   try {
