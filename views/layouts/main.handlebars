@@ -1,22 +1,28 @@
-<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>REinvesting</title>
+    <meta charset="UTF-8">
+    <title>DHGG Calculations</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
+    {{!-- HEADER IN HERE --}}
+    
     <nav id="home" class="navbar navbar-dark bg-dark">
         <!-- Navbar content -->
         <div class="container">
             <nav>
-                <img src="./assets/Images/DHGG Real Estate WHITE.png" style="width:25%;height:auto"alt="company logo">
+                <img src=".." style="width:25%;height:auto"alt="company logo">
                 <a class="navbar-brand" href="#calculator">DHGG Rehab Calculation</a>
                 <a class="navbar-brand" href="#home">Home</a>
-                <a class="navbar-brand" href="#">Login</a>
+                <a class="navbar-brand" href="#">Login</a>       
+                 {{#if loggedIn}}
+                 <button id="logout" class="btn-no-style">Logout</button>
+                {{else}}
+        <!-- Otherwise, show a link to login -->
+                 <a href="/login">Login</a>
+                 {{/if}}
+
                 <a class="navbar-brand" href="#"></a>
             </nav>
         </div>
@@ -25,10 +31,11 @@
         <img src="./assets/Images/RealEstate.jpeg" alt="Imagery" style="width:100%;height:auto">
     </div>
 
+
     <div class="flex-column justify-space-around">
         <header class="display-flex justify-space-between align-center p-2 text-center bg-secondary text-white">
             <h1 id="calculator">
-                REinvesting
+                DHGG Calculator
             </h1>
         </header>
         <main class="container container-fluid mt-5">
@@ -105,6 +112,7 @@
                                 </ul>
                             </div>
                         </div>
+                        
                         <div class="col-sm-6">
                             <div class="card col">
                                 <div class="card-header bg-secondary text-white">
@@ -130,6 +138,8 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            
                             <div class="card col mt-5">
                                 <div class="card-header bg-warning">
                                     <p>Payment Schedule</p> <button id="paymentScheduleBtn" class="btn btn-primary">New
@@ -144,30 +154,39 @@
                         </div>
                     </div>
 
-
-
-
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>
 
 
 
-    <footer class="bg-secondary text-white text-center text-lg-start mt-5">
-        <!-- Copyright -->
-        <div class="text-center p-3">
-            © 2022 Copyright:
-            <a class="text-primary" href="#">REinvestingApp.com</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/public/js/logic.js"></script>
+
+
+        {{!-- mainsection will be what changes
+        <main class="container container-fluid mt-5">
+            {{{ body }}}
+        </main> --}}
+
+
+
+
+        {{!-- this will be our footer --}}
+        <footer class="bg-secondary text-white text-center text-lg-start mt-5">
+            <!-- Copyright -->
+            <div class="text-center p-3">
+                © DHGG 2022 Copyright:
+                <a class="text-primary" href="#">REinvestingApp.com</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/public/js/logic.js"></script>
+         <!-- If the user is logged in, load the JS script for when they logout -->
+        {{#if loggedIn}}
+        <script src="/js/logout.js"></script>
+        {{/if}}
 </body>
 
 </html>
