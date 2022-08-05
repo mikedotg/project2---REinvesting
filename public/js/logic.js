@@ -7,8 +7,12 @@ const options = {
 };
 
 const pp = document.getElementById('ppInput');
-const dp = document.getElementById('dpInput');
+const dp = document.getElementById('dpInput'); 
+const dpC = document.getElementById('downpmtCalc'); 
+const fa = document.getElementById('financedAmtCalc');
+const lp = document.getElementById('lpInput');
 
+let faCalc
 
 function runFetch() {
 // this will be a fetch call for the displayed text in the search bar. 
@@ -45,14 +49,54 @@ searchBtn.addEventListener('click', function () {
 
 // downpayment calculations. 
 function dpCalc(){
-    
-    if (ppInput.value && dpInput.value) { 
-        let calc = ppInput.value * dpInput.value;
-        console.log(calc);
+    let calc = (pp.value * (dp.value/100));
+    let faCalc = (pp.value - calc)
 
-    }};
+    if ((pp.value && dp.value)) {
+        // console.log(pp.value * (dp.value/100));
+        dpC.classList.remove('text-secondary', 'text-danger')
+        dpC.textContent = calc;
+        dpC.classList.add('text-primary');
+        fa.classList.remove('text-secondary', 'text-danger')
+        fa.textContent = faCalc;
+        fa.classList.add('text-primary');
 
-    dpCalc();
+    } else if ((!pp.value && dp.value) || (pp.value && !dp.value)) {
+        // console.log('missing an input');
+        dpC.classList.remove('text-primary', 'text-warning')
+        dpC.textContent = 'Missing an input'
+        dpC.classList.add('text-danger');
+        fa.classList.remove('text-primary', 'text-warning')
+        fa.textContent = 'Missing dpC'
+        fa.classList.add('text-danger');
+        
+    } else if (!pp.value || !dp.value){
+        // console.log('no value');
+        dpC.classList.remove('text-primary', 'text-danger')
+        dpC.textContent = 'Missing pp and dp'
+        dpC.classList.add('text-warning');
+        fa.classList.remove('text-primary', 'text-danger')
+        fa.textContent = 'Missing pp and dpC';
+        fa.classList.add('text-warning');
+    }
 
+    // if (!lp.value && (fa.value = isNaN)){
+    //     console.log('missing things');
+    // } else if (lp.value && (fa.value = isNaN)){
+    //     console.log('missing fa value');
+    // } else 
+    if (lp.value ){
+        console.log((lp.value/100) * faCalc);
+    }
 
-// think about this, if there is no input on one of the items I want you to show what is missing in my calculation if both are filled I want you to to say inputs required. if both are there then add em up. 
+    if (2){
+
+    }
+};
+
+dpCalc();
+
+pp.addEventListener('input', (event) => {dpCalc();});
+dp.addEventListener('input', (event) => {dpCalc();});
+lp.addEventListener('input', (event) => {dpCalc();});
+
