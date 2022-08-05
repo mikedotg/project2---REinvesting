@@ -1,6 +1,9 @@
 {
   "name": "project2---reinvesting",
   "version": "1.0.0",
+  "engines": {
+  "node": "16.16.0"
+  },
   "description": "This will be an application that uses, google and zillow APIs to return certain information and run calculations.",
   "main": "server.js",
   "scripts": {
