@@ -15,7 +15,14 @@
                 <img src="./assets/Images/DHGG Real Estate WHITE.png" style="width:25%;height:auto"alt="company logo">
                 <a class="navbar-brand" href="#calculator">DHGG Rehab Calculation</a>
                 <a class="navbar-brand" href="#home">Home</a>
-                <a class="navbar-brand" href="#">Login</a>
+                <a class="navbar-brand" href="#">Login</a>       
+                 {{#if loggedIn}}
+                 <button id="logout" class="btn-no-style">Logout</button>
+                {{else}}
+        <!-- Otherwise, show a link to login -->
+                 <a href="/login">Login</a>
+                 {{/if}}
+
                 <a class="navbar-brand" href="#"></a>
             </nav>
         </div>
@@ -24,27 +31,150 @@
         <img src="./assets/Images/RealEstate.jpeg" alt="Imagery" style="width:100%;height:auto">
     </div>
 
+
     <div class="flex-column justify-space-around">
-        <div class="flex-column justify-space-around">
-            <header class="display-flex justify-space-between align-center p-2 text-center bg-secondary text-white">
-                <h1>
-                    REinvesting
-                </h1>
-            </header>
-            <main class="container container-fluid mt-5">
-            </main>
+        <header class="display-flex justify-space-between align-center p-2 text-center bg-secondary text-white">
+            <h1 id="calculator">
+                REinvesting
+            </h1>
+        </header>
+        <main class="container container-fluid mt-5">
+        </main>
+    </div>
+
+    <div class="container justify-space-between">
+        <div class="row">
+            <!-- this will be the left bar and hold all of the saved searches.  -->
+            <div class="col-3 border">
+                <button class="btn btn-primary mt-3">Click here to save your seach</button>
+                <hr>
+            </div>
+
+            <!-- this will be the right container -->
+            <div class="col-9 border ">
+
+                <div class="input-group mt-5 mb-3">
+                    <input id="userInput" type="text" class="form-control"
+                        placeholder="5500 Grand Lake Dr, San Antonio, TX, 78244" aria-label="Search city"
+                        aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
+                </div>
+
+                <!-- this container holds the search info and inputs-->
+                <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                    <!-- this holds the image and search bar -->
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="./assets/Images/3.png" class="img-fluid rounded-start mx-auto d-block"
+                                alt="image of roperty listed">
+                        </div>
+                        <div class="col-md-8">
+                            <ul class="list-group list-group-flush">
+                                <!-- this will hold the searched information -->
+                                <li id="searchAddress" class="list-group-item">Address:</li>
+                                <li id="searchBeds" class="list-group-item">Beds:</li>
+                                <li id="searchBaths" class="list-group-item">Baths:</li>
+                                <li id="searchSqft" class="list-group-item">Sqft:</li>
+                                <li id="searchLot" class="list-group-item">Lot:</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container row">
+                    <!-- this will be the list for user inputs -->
+                    <div class="row mt-3">
+                        <div class="col-sm-6 mb-5">
+                            <div class="card col">
+                                <div class="card-header bg-primary text-white">
+                                    <h4>Flip Calculations</h4>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li id="purchasePrice" class="list-group-item"><strong>Purchase Price(pp):</strong> <input id="ppInput" type="text"></li>
+                                    <li id="downPmtPercentage" class="list-group-item"><strong>Down Payment %(dp):</strong> <input id="dpInput" type="text"></li>
+                                        <li id="downPmtCash" class="list-group-item">Down Payment in Cash(dpC): $<strong id="downpmtCalc"> calculation</strong></li>
+                                        <li id="financeAmt" class="list-group-item">Financed Amount: $<strong id="financedAmtCalc"> calculation</strong></li>
+                                    <li id="lenderPtsPercentage" class="list-group-item"><strong>Lender Points %(lp):</strong> <input id="lpInput" type="text"></li>
+                                        <li id="lenderPtCash" class="list-group-item">Lender Points in Cash:<strong> calculation</strong></li>
+                                    <li id="lenderFees" class="list-group-item"><strong>Lender Fees:</strong> <input type="text"></li>
+                                        <li id="attorneyFee" class="list-group-item">Closing Cost (est 1.5%) <strong>calculation</strong></li>
+                                        <li id="totalCash" class="list-group-item"> Total Cash Needed:<strong> calculation</strong></li>
+                                        <li id="totalPurchasePrice" class="list-group-item"> Total Purchase Price:<strong> calculation</strong></li>
+                                    <li id="rehabBudget" class="list-group-item"><strong> Rehab Budget:</strong> <input type="text"></li>
+                                    <li id="holdingCostBudget" class="list-group-item"><strong> Holding Cost:</strong> <input type="text"></li>
+                                    <li id="arv" class="list-group-item"><strong>After Repair Value (ARV):</strong> <input type="text"></li>
+                                        <li id="sellCost" class="list-group-item">Selling Cost<strong> calculation</strong></li>
+                                        <li id="ltv" class="list-group-item">Loan-To-Value: <strong> calculation</strong></li>
+                                    <li id="totalExpenses" class="list-group-item">Total Expenses: <strong> calculation</strong></li>
+                                    <li id="profit" class="list-group-item">Profit: <strong> calculation</strong></li>
+                                    <li id="cashOnCash" class="list-group-item"> Cash-on-Cash Return:<strong> calculation</strong></li>
+                                    <li id="roi" class="list-group-item">Return on Investment: <strong> calculation</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card col">
+                                <div class="card-header bg-secondary text-white">
+                                    <p>Rehab Cost</p> <button id="rehabCostBtn" class="btn btn-primary">New
+                                        Line</button>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">An item</li>
+                                    <li class="list-group-item">A second item</li>
+                                    <li class="list-group-item">A third item</li>
+                                </ul>
+                            </div>
+                            <div class="col mt-5">
+                                <div class="card col">
+                                    <div class="card-header bg-secondary text-white">
+                                        <p>Holding Cost</p> <button id="holdingCostBtn" class="btn btn-primary">New
+                                            Line</button>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">An item</li>
+                                        <li class="list-group-item">A second item</li>
+                                        <li class="list-group-item">A third item</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card col mt-5">
+                                <div class="card-header bg-warning">
+                                    <p>Payment Schedule</p> <button id="paymentScheduleBtn" class="btn btn-primary">New
+                                        Line</button>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">An item</li>
+                                    <li class="list-group-item">A second item</li>
+                                    <li class="list-group-item">A third item</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- If the user is logged in, show a logout button -->
-        {{#if loggedIn}}
-        <button id="logout" class="btn-no-style">Logout</button>
-        {{else}}
-        <!-- Otherwise, show a link to login -->
-        <a href="/login">Login</a>
-        {{/if}}
+    </div>
+
+
+
+
+
         {{!-- mainsection will be what changes --}}
         <main class="container container-fluid mt-5">
             {{{ body }}}
         </main>
+
+
+
+
+
+
+
+
+
+
 
         {{!-- this will be our footer --}}
         <footer class="bg-secondary text-white text-center text-lg-start mt-5">
