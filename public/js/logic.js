@@ -16,7 +16,7 @@ const lf = document.getElementById('lf');
 const aCC = document.getElementById('aCC'); 
 const tC = document.getElementById('tC');
 const tPP = document.getElementById('tPP');
-const arvInput = document.getElementById('arvInput');
+const arv = document.getElementById('arv');
 const sC = document.getElementById('sC');
 
 function runFetch() {
@@ -60,7 +60,7 @@ function dpCalc() {
     let accCalc = (pp.value * (1.5/100));
     let totalCash =  (parseInt(lf.value) + parseInt(dpcalc) + parseInt(lpCalc) + parseInt(accCalc));
     let tPPrice =  (parseInt(pp.value) + parseInt(lpCalc) + parseInt(lf.value));
-    let sellCost = (arvInput.value * (6/100));
+    let sellCost = (arv.value);
 
     if ((pp.value && dp.value)) {
         dpC.classList.remove('text-secondary', 'text-danger')
@@ -141,9 +141,17 @@ function dpCalc() {
         tPP.classList.add('text-warning');
     }
 
-    if (arvInput.value){
-        console.log(arvInput.value);
-        sC.textContent = sellCost;
+    if (arv.value){
+        console.log(arv.value);
+        sC.classList.remove('text-warning');
+        sC.innerText = sellCost;
+        sC.classList.add('text-primary');
+
+    } else if (!arv.value) {
+        sC.classList.remove('text-primary');
+        sC.innerText = ' Missing arv';
+        sC.classList.add('text-warning');
+
     }
 
 };
@@ -154,5 +162,5 @@ pp.addEventListener('input', (event) => { dpCalc(); });
 dp.addEventListener('input', (event) => { dpCalc(); });
 lp.addEventListener('input', (event) => { dpCalc(); });
 lf.addEventListener('input', (event) => { dpCalc(); });
-arvInput.addEventListener('input', (event) => { dpCalc(); });
+arv.addEventListener('input', (event) => { dpCalc(); });
 
