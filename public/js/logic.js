@@ -12,12 +12,19 @@ const dpC = document.getElementById('downpmtCalc');
 const fa = document.getElementById('financedAmtCalc');
 const lp = document.getElementById('lpInput');
 const lpC = document.getElementById('lpC');
-const lf = document.getElementById('lf'); 
-const aCC = document.getElementById('aCC'); 
+const lf = document.getElementById('lf');
+const aCC = document.getElementById('aCC');
 const tC = document.getElementById('tC');
 const tPP = document.getElementById('tPP');
 const arv = document.getElementById('arv');
 const sC = document.getElementById('sC');
+const ltv = document.getElementById('ltvT');
+const te = document.getElementById('te');
+const rb = document.getElementById('rb');
+const hcb = document.getElementById('hcb');
+const profit = document.getElementById('profit');
+const cc = document.getElementById('cc');
+
 
 function runFetch() {
     // this will be a fetch call for the displayed text in the search bar. 
@@ -57,10 +64,13 @@ function dpCalc() {
     let dpcalc = (pp.value * (dp.value / 100));
     let faCalc = (pp.value - dpcalc);
     let lpCalc = (lp.value / 100) * faCalc;
-    let accCalc = (pp.value * (1.5/100));
-    let totalCash =  (parseInt(lf.value) + parseInt(dpcalc) + parseInt(lpCalc) + parseInt(accCalc));
-    let tPPrice =  (parseInt(pp.value) + parseInt(lpCalc) + parseInt(lf.value));
-    let sellCost = (arv.value);
+    let accCalc = (pp.value * (1.5 / 100));
+    let totalCash = (parseInt(lf.value) + parseInt(dpcalc) + parseInt(lpCalc) + parseInt(accCalc));
+    let tPPrice = (parseInt(pp.value) + parseInt(lpCalc) + parseInt(lf.value)) + parseInt(accCalc);
+    let sellCost = (arv.value * 0.06);
+    let teCost = (parseInt(rb.value) + parseInt(hcb.value) + parseInt(sellCost));
+    let profitCalc = (parseInt(arv.value) - parseInt(tPPrice) - parseInt(teCost));
+    let ccCalc = (parseInt(profitCalc)/parseInt(totalCash));
 
     if ((pp.value && dp.value)) {
         dpC.classList.remove('text-secondary', 'text-danger')
@@ -70,50 +80,50 @@ function dpCalc() {
         fa.textContent = '$' + faCalc;
         fa.classList.add('text-primary');
         aCC.classList.remove('text-secondary', 'text-warning')
-        aCC.textContent = accCalc;
+        aCC.textContent = ' $' + accCalc;
         aCC.classList.add('text-primary');
 
     } else if ((!pp.value && dp.value)) {
         dpC.classList.remove('text-primary', 'text-warning')
-        dpC.textContent = 'Missing an input'
+        dpC.textContent = 'missing an input'
         dpC.classList.add('text-danger');
         fa.classList.remove('text-primary', 'text-warning')
-        fa.textContent = 'Missing pp'
+        fa.textContent = 'missing pp'
         fa.classList.add('text-danger');
         aCC.classList.remove('text-primary')
-        aCC.textContent = ('Missing pp');
+        aCC.textContent = ('missing pp');
         aCC.classList.add('text-warning');
 
-    } else if ((pp.value && !dp.value)){
+    } else if ((pp.value && !dp.value)) {
         dpC.classList.remove('text-primary', 'text-warning')
-        dpC.textContent = 'Missing an input'
+        dpC.textContent = 'missing an input'
         dpC.classList.add('text-danger');
         fa.classList.remove('text-primary', 'text-warning')
-        fa.textContent = 'Missing dp'
+        fa.textContent = 'missing dp'
         fa.classList.add('text-danger');
         aCC.classList.remove('text-secondary', 'text-warning')
-        aCC.textContent = accCalc;
+        aCC.textContent = ' $' + accCalc;
         aCC.classList.add('text-primary');
 
     } else if (!pp.value || !dp.value) {
         dpC.classList.remove('text-primary', 'text-danger')
-        dpC.textContent = 'Missing pp and dp'
+        dpC.textContent = 'missing pp and dp'
         dpC.classList.add('text-warning');
         fa.classList.remove('text-primary', 'text-danger')
-        fa.textContent = 'Missing pp and dpC';
+        fa.textContent = 'missing pp and dpC';
         fa.classList.add('text-warning');
         aCC.classList.remove('text-primary')
-        aCC.textContent = ('Missing pp');
+        aCC.textContent = ('missing pp');
         aCC.classList.add('text-warning');
     };
 
     if (!lp.value && (faCalc <= 0)) {
         lpC.classList.remove('text-primary', 'text-danger')
-        lpC.textContent = 'Missing lp and fa';
+        lpC.textContent = 'missing lp and fa';
         lpC.classList.add('text-warning');
     } else if (!lp.value || (faCalc <= 0)) {
         lpC.classList.remove('text-primary', 'text-warning')
-        lpC.textContent = 'Missing an input';
+        lpC.textContent = 'missing an input';
         lpC.classList.add('text-danger');
     } else if ((lp.value && (faCalc > 0))) {
         lpC.classList.remove('text-danger', 'text-warning')
@@ -121,37 +131,119 @@ function dpCalc() {
         lpC.classList.add('text-primary')
     };
 
-    if (lf.value && (dpcalc>0) && (lpCalc>0) && (accCalc>0)){
+    if (lf.value && (dpcalc > 0) && (lpCalc > 0) && (accCalc > 0)) {
         tC.classList.remove('text-warning');
         tC.textContent = '$' + totalCash;
         tC.classList.add('text-primary');
-    } else if (!lf.value || (dpcalc<=0) || (lpCalc<=0) || (accCalc<=0)){
+    } else if (!lf.value || (dpcalc <= 0) || (lpCalc <= 0) || (accCalc <= 0)) {
         tC.classList.remove('text-primary');
-        tC.textContent = 'Missing inputs';
+        tC.textContent = 'missing inputs';
         tC.classList.add('text-warning');
     }
 
-    if (pp.value && (lpCalc>0) && (lf.value)){
+    if (pp.value && (lpCalc > 0) && (lf.value)) {
         tPP.classList.remove('text-warning');
         tPP.textContent = '$' + tPPrice;
         tPP.classList.add('text-primary');
-    } else if (!pp.value || (lpCalc>0) || (lf.value)){
+    } else if (!pp.value || (lpCalc > 0) || (lf.value)) {
         tPP.classList.remove('text-primary');
-        tPP.textContent = 'Missing inputs';
+        tPP.textContent = 'missing inputs';
         tPP.classList.add('text-warning');
     }
 
-    if (arv.value){
-        console.log(arv.value);
-        sC.classList.remove('text-warning');
-        sC.innerText = sellCost;
-        sC.classList.add('text-primary');
-
-    } else if (!arv.value) {
+    if (!pp.value && !arv.value) {
         sC.classList.remove('text-primary');
-        sC.innerText = ' Missing arv';
+        sC.innerText = ' missing arv';
         sC.classList.add('text-warning');
+        ltv.classList.remove('text-primary');
+        ltv.innerText = ' missing pp and arv';
+        ltv.classList.add('text-warning');
+    } else if (!pp.value && arv.value) {
+        sC.classList.remove('text-warning');
+        sC.innerText = ' $' + sellCost;
+        sC.classList.add('text-primary');
+        ltv.classList.remove('text-primary');
+        ltv.innerText = ' missing pp';
+        ltv.classList.add('text-warning');
+    } else if (pp.value && !arv.value) {
+        sC.classList.remove('text-primary');
+        sC.innerText = ' missing arv';
+        sC.classList.add('text-secondary');
+        ltv.classList.remove('text-primary');
+        ltv.innerText = ' missing arv';
+        ltv.classList.add('text-warning');
+    } else if (pp.value && arv.value) {
+        sC.classList.remove('text-warning');
+        sC.innerText = ' $' + sellCost;
+        sC.classList.add('text-primary');
+        ltv.classList.remove('text-primary');
+        ltv.innerText = ' $' + (pp.value / arv.value);
+        ltv.classList.add('text-warning');
+    }
 
+    // let teCost = rb.value + hcb.value + sellCost
+    if (!rb.value && !hcb.value && !arv.value){
+        te.classList.remove('text-primary', 'text-danger');
+        te.innerText = ' missing rb, hcb, and sc';
+        te.classList.add('text-warning')
+    } else if (rb.value && !hcb.value && !arv.value){
+        te.classList.remove('text-primary', 'text-warning');
+        te.innerText = ' missing hcb and sc';
+        te.classList.add('text-danger')
+    } else if (!rb.value && hcb.value && !arv.value){
+        te.classList.remove('text-primary', 'text-warning');
+        te.innerText = ' missing rb and sc';
+        te.classList.add('text-danger')
+    } else if (rb.value && hcb.value && !arv.value){
+        te.classList.remove('text-primary', 'text-warning');
+        te.innerText = ' missing sc';
+        te.classList.add('text-danger')
+    } else if (rb.value && hcb.value && arv.value){
+        te.classList.remove('text-danger', 'text-warning');
+        te.innerText = ' $' +teCost;
+        te.classList.add('text-primary')
+    }
+
+    // let profitCalc = (parseInt(arv.value) - parseInt(tPPrice) - parseInt(teCost));
+    if (!arv.value && !pp.value && !lf.value && !rb.value && !hcb.value){
+        profit.classList.remove('text-primary', 'text-danger');
+        profit.innerText = ' missing arv, te and tpp';
+        profit.classList.add('text-warning');
+    } else if (arv.value && (!pp.value||!lf.value) && (!rb.value||!hcb.value)){
+        profit.classList.remove('text-primary', 'text-warning');
+        profit.innerText = ' missing te and tpp';
+        profit.classList.add('text-danger');
+    } else if (arv.value && pp.value && lf.value && (!rb.value || !hcb.value)) {
+        profit.classList.remove('text-primary', 'text-warning');
+        profit.innerText = ' missing te';
+        profit.classList.add('text-danger');
+    } else if (arv.value && (!pp.value || !lf.value) && rb.value  &&hcb.value) {
+        profit.classList.remove('text-primary', 'text-warning');
+        profit.innerText = ' missing tpp';
+        profit.classList.add('text-danger');
+    } else if (arv.value && pp.value && lf.value && rb.value && hcb.value){
+        profit.classList.remove('text-danger', 'text-warning');
+        profit.innerText = ' $' + profitCalc;
+        profit.classList.add('text-primary');
+    }
+
+    // let ccCalc = (parseInt(profitCalc)/parseInt(totalCash))
+    // let profitCalc = (parseInt(arv.value) - parseInt(tPPrice) - parseInt(teCost));
+        // let tPPrice = (parseInt(pp.value) + parseInt(lpCalc) + parseInt(lf.value)) + parseInt(accCalc);
+    // let totalCash = (parseInt(lf.value) + parseInt(dpcalc) + parseInt(lpCalc) + parseInt(accCalc));
+
+    if (!arv.value && !lf.value) {
+        cc.classList.remove('text-primary', 'text-danger');
+        cc.innerText = ' missing profit and tc';
+        cc.classList.add('text-warning');
+    } else if (!arv.value && lf.value){
+        cc.classList.remove('text-primary', 'text-warning');
+        cc.innerText = ' missing profit';
+        cc.classList.add('text-danger');
+    } else if (arv.value && !lf.value){
+        cc.classList.remove('text-primary', 'text-warning');
+        cc.innerText = ' missing tc';
+        cc.classList.add('text-danger');
     }
 
 };
@@ -163,4 +255,6 @@ dp.addEventListener('input', (event) => { dpCalc(); });
 lp.addEventListener('input', (event) => { dpCalc(); });
 lf.addEventListener('input', (event) => { dpCalc(); });
 arv.addEventListener('input', (event) => { dpCalc(); });
+rb.addEventListener('input', (event) => { dpCalc(); });
+hcb.addEventListener('input', (event) => { dpCalc(); });
 
